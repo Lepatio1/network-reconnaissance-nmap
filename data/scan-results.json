@@ -1,0 +1,226 @@
+{
+  "scan_metadata": {
+    "target": "192.168.190.133",
+    "network": "192.168.190.0/24",
+    "scanning_tool": "Nmap 7.95",
+    "scanning_machine": "Kali Linux",
+    "target_vm": "Metasploitable 2",
+    "environment": "Authorised Lab - VMware",
+    "scan_date": "2026-08-27",
+    "authorization_status": "Authorised laboratory testing"
+  },
+  "host_discovery": {
+    "command": "sudo nmap -sn 192.168.190.0/24",
+    "total_ips_scanned": 256,
+    "hosts_up": 5,
+    "active_hosts": [
+      "192.168.190.1",
+      "192.168.190.2",
+      "192.168.190.133",
+      "192.168.190.254"
+    ]
+  },
+  "open_ports_tcp": [
+    {
+      "port": 21,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "ftp",
+      "version": "vsftpd 2.3.4",
+      "cpe": "cpe:/a:vsftpd:vsftpd:2.3.4"
+    },
+    {
+      "port": 22,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "ssh",
+      "version": "OpenSSH 4.7p1 Debian 8ubuntu1",
+      "cpe": "cpe:/a:openbsd:openssh:4.7p1"
+    },
+    {
+      "port": 23,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "telnet",
+      "version": "Linux telnetd",
+      "cpe": null
+    },
+    {
+      "port": 25,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "smtp",
+      "version": "Postfix smtpd",
+      "cpe": "cpe:/a:postfix:postfix"
+    },
+    {
+      "port": 53,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "domain",
+      "version": "ISC BIND 9.4.2",
+      "cpe": "cpe:/a:isc:bind:9.4.2"
+    },
+    {
+      "port": 80,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "http",
+      "version": "Apache httpd 2.2.8 (Ubuntu) DAV/2",
+      "cpe": "cpe:/a:apache:http_server:2.2.8"
+    },
+    {
+      "port": 111,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "rpcbind",
+      "version": "2 (RPC #100000)",
+      "cpe": null
+    },
+    {
+      "port": 139,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "netbios-ssn",
+      "version": "Samba smbd 3.X - 4.X (WORKGROUP)",
+      "cpe": "cpe:/a:samba:samba:3.0"
+    },
+    {
+      "port": 445,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "microsoft-ds",
+      "version": "Samba smbd 3.X - 4.X (WORKGROUP)",
+      "cpe": "cpe:/a:samba:samba:3.0"
+    },
+    {
+      "port": 512,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "exec",
+      "version": "netkit-rsh rexecd",
+      "cpe": null
+    },
+    {
+      "port": 513,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "login",
+      "version": "OpenBSD or Solaris rlogind",
+      "cpe": null
+    },
+    {
+      "port": 514,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "shell",
+      "version": "tcpwrapped",
+      "cpe": null
+    },
+    {
+      "port": 1099,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "java-rmi",
+      "version": "GNU Classpath grmiregistry",
+      "cpe": null
+    },
+    {
+      "port": 1524,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "ingreslock",
+      "version": "Metasploitable root shell",
+      "cpe": null
+    },
+    {
+      "port": 2049,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "nfs",
+      "version": "2-4 (RPC #100003)",
+      "cpe": null
+    },
+    {
+      "port": 2121,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "ftp",
+      "version": "ProFTPD 1.3.1",
+      "cpe": "cpe:/a:proftpd:proftpd:1.3.1"
+    },
+    {
+      "port": 3306,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "mysql",
+      "version": "MySQL 5.0.51a-3ubuntu5",
+      "cpe": "cpe:/a:mysql:mysql:5.0.51a"
+    },
+    {
+      "port": 5432,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "postgresql",
+      "version": "PostgreSQL DB 8.3.0 - 8.3.7",
+      "cpe": "cpe:/a:postgresql:postgresql:8.3.0"
+    },
+    {
+      "port": 5900,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "vnc",
+      "version": "VNC (protocol 3.3)",
+      "cpe": null
+    },
+    {
+      "port": 6000,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "x11",
+      "version": "X11 (access denied)",
+      "cpe": null
+    },
+    {
+      "port": 6667,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "irc",
+      "version": "UnrealIRCd",
+      "cpe": "cpe:/a:unrealircd:unrealircd"
+    },
+    {
+      "port": 8009,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "ajp13",
+      "version": "Apache Jserv (Protocol v1.3)",
+      "cpe": null
+    },
+    {
+      "port": 8180,
+      "protocol": "tcp",
+      "state": "open",
+      "service": "http",
+      "version": "Apache Tomcat/Coyote JSP engine 1.1",
+      "cpe": "cpe:/a:apache:tomcat:1.1"
+    }
+  ],
+  "os_detection": {
+    "command": "sudo nmap -O 192.168.190.133",
+    "device_type": "general purpose",
+    "os_running": "Linux 2.6.X",
+    "os_cpe": "cpe:/o:linux:linux_kernel:2.6",
+    "os_details": "Linux 2.6.9 - 2.6.33",
+    "network_distance": "1 hop"
+  },
+  "hostname_info": {
+    "hostname": "metasploitable.localdomain",
+    "aliases": ["irc.Metasploitable.LAN"]
+  },
+  "summary": {
+    "total_open_tcp_ports": 23,
+    "total_closed_ports": 977,
+    "attack_surface_assessment": "Large number of exposed network services representing significant attack surface"
+  }
+}

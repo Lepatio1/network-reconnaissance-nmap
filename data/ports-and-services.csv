@@ -1,0 +1,24 @@
+port,protocol,state,service,detected_version,cpe,attack_surface_risk
+21,tcp,open,ftp,vsftpd 2.3.4,cpe:/a:vsftpd:vsftpd:2.3.4,High - Known vulnerabilities in vsftpd 2.3.4
+22,tcp,open,ssh,OpenSSH 4.7p1 Debian 8ubuntu1,cpe:/a:openbsd:openssh:4.7p1,High - Outdated SSH version
+23,tcp,open,telnet,Linux telnetd,,Critical - Unencrypted clear-text protocol
+25,tcp,open,smtp,Postfix smtpd,cpe:/a:postfix:postfix,High - Email service exposure
+53,tcp,open,dns,ISC BIND 9.4.2,cpe:/a:isc:bind:9.4.2,High - DNS vulnerabilities in BIND 9.4.2
+80,tcp,open,http,Apache httpd 2.2.8 (Ubuntu) DAV/2,cpe:/a:apache:http_server:2.2.8,High - Web server with known vulnerabilities
+111,tcp,open,rpcbind,2 (RPC #100000),,High - RPC exposure
+139,tcp,open,netbios-ssn,Samba smbd 3.X - 4.X,cpe:/a:samba:samba:3.0,Critical - NetBIOS and file sharing vulnerabilities
+445,tcp,open,microsoft-ds,Samba smbd 3.X - 4.X,cpe:/a:samba:samba:3.0,Critical - SMB/CIFS vulnerabilities (EternalBlue etc)
+512,tcp,open,exec,netkit-rsh rexecd,,Critical - Unencrypted remote execution
+513,tcp,open,login,OpenBSD or Solaris rlogind,,Critical - Unencrypted remote login
+514,tcp,open,shell,tcpwrapped,,High - Remote shell access
+1099,tcp,open,java-rmi,GNU Classpath grmiregistry,,High - Java RMI exploitation vectors
+1524,tcp,open,ingreslock,Metasploitable root shell,,Critical - Root shell backdoor
+2049,tcp,open,nfs,2-4 (RPC #100003),,High - Network File System exposure
+2121,tcp,open,ftp,ProFTPD 1.3.1,cpe:/a:proftpd:proftpd:1.3.1,High - Known vulnerabilities in ProFTPD 1.3.1
+3306,tcp,open,mysql,MySQL 5.0.51a-3ubuntu5,cpe:/a:mysql:mysql:5.0.51a,Critical - Database directly exposed to network
+5432,tcp,open,postgresql,PostgreSQL DB 8.3.0 - 8.3.7,cpe:/a:postgresql:postgresql:8.3.0,Critical - Database directly exposed to network
+5900,tcp,open,vnc,VNC (protocol 3.3),,High - Remote graphical access exposure
+6000,tcp,open,x11,X11 (access denied),,Medium - X11 graphical server
+6667,tcp,open,irc,UnrealIRCd,cpe:/a:unrealircd:unrealircd,High - IRC server vulnerabilities
+8009,tcp,open,ajp13,Apache Jserv (Protocol v1.3),,High - Java servlet protocol exposure
+8180,tcp,open,http,Apache Tomcat/Coyote JSP engine 1.1,cpe:/a:apache:tomcat:1.1,High - Web application server vulnerabilities
