@@ -1,4 +1,3 @@
-<img width="991" height="582" alt="Screenshot 2026-08-27 151707" src="https://github.com/user-attachments/assets/cde0cf05-d358-4a84-ae04-ef97e59be758" />
 # 🔎 Network Reconnaissance & Service Enumeration Using Nmap
 
 ![Kali Linux](https://img.shields.io/badge/Platform-Kali%20Linux-557C94?logo=kalilinux&logoColor=white)
