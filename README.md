@@ -335,7 +335,117 @@ The version scan also identified several **legacy software versions**, which wou
 
 ---
 
-# 🛡️ Defensive Recommendations
+---
+
+# 6️⃣ UDP Port Scanning
+
+While the initial reconnaissance focused on TCP ports, UDP services also represent a potential attack surface.
+
+### Command used
+
+```bash
+sudo nmap -sU --top-ports 1000 192.168.190.133
+```
+
+### What does `-sU` do?
+
+The `-sU` option performs **UDP port scanning**. UDP services often include DNS, DHCP, SNMP, and other critical infrastructure services that may not be evident from TCP scanning alone.
+
+### UDP Scanning Considerations
+
+- **Slower than TCP scanning** due to ICMP rate limiting
+- **Less reliable** than TCP (UDP packets may be dropped)
+- **Limited to top ports** to reduce scan time (can adjust with `--top-ports` or `-p`)
+- Often reveals **DNS, DHCP, SNMP, NTP** services
+
+### Methodology
+
+For Metasploitable 2, key UDP services to enumerate:
+
+```bash
+# Scan specific UDP ports
+sudo nmap -sU -p 53,67,68,69,123,161,162 192.168.190.133
+
+# Scan all UDP ports (very time-consuming)
+sudo nmap -sU 192.168.190.133 -p-
+
+# Combine TCP and UDP scanning
+sudo nmap -sS -sU 192.168.190.133
+```
+
+**Common UDP services:**
+- Port 53: DNS
+- Port 67/68: DHCP
+- Port 69: TFTP
+- Port 123: NTP
+- Port 161/162: SNMP
+
+---
+
+# 7️⃣ NSE Script Enumeration
+
+Nmap Scripting Engine (NSE) scripts automate service enumeration and vulnerability detection.
+
+### Available Script Categories
+
+```
+auth          - Evaluate authentication mechanisms
+broadcast     - Interact with network services
+brute         - Brute force credentials
+default       - Standard scripts run with -sV
+discovery     - Enumerate network details
+dos           - Denial of Service testing
+exploit       - Exploit vulnerabilities
+external      - Query external services
+fuzzer        - Protocol fuzzing
+intrusive     - Aggressive/intrusive probes
+malware       - Malware detection
+safe          - Non-intrusive scripts
+version       - Version detection
+vuln          - Vulnerability detection
+```
+
+### Commands
+
+```bash
+# Run default NSE scripts (included with -sV)
+sudo nmap -sV 192.168.190.133
+
+# Run all safe scripts
+sudo nmap -sV --script safe 192.168.190.133
+
+# Run vulnerability detection scripts
+sudo nmap -sV --script vuln 192.168.190.133
+
+# Run specific script
+sudo nmap -sV --script=smb-os-discovery 192.168.190.133
+
+# Run multiple scripts
+sudo nmap -sV --script=smb-*,vuln 192.168.190.133
+
+# List available scripts
+sudo nmap --script-help
+
+# Run with verbose output
+sudo nmap -sV --script default -d 192.168.190.133
+```
+
+### Useful NSE Scripts for Metasploitable 2
+
+| Script | Purpose | Port |
+|--------|---------|------|
+| smb-os-discovery | Detect SMB OS details | 445 |
+| smb-enum-shares | Enumerate SMB shares | 445 |
+| mysql-info | Extract MySQL version info | 3306 |
+| postgresql-databases | List PostgreSQL databases | 5432 |
+| ftp-anon | Check for FTP anonymous access | 21 |
+| ssl-cert | Extract SSL certificate details | 443,8443 |
+| http-title | Grab HTTP title | 80,8000 |
+| dns-brute | Brute force DNS hostnames | 53 |
+
+---
+
+### 8️⃣ Aggressive Comprehensive Scanning
 
 Based on the reconnaissance findings, the following defensive measures would help reduce the exposed attack surface in a production environment.
 
@@ -438,14 +548,27 @@ sudo nmap -sV -O 192.168.190.133
 ```text
 network-reconnaissance-nmap/
 │
-├── README.md
+├── README.md                          # This file
+├── LICENSE                            # Project license
 │
-└── screenshots/
-    ├── 01-host-discovery.png
-    ├── 02-basic-port-scan.png
-    ├── 03-service-version-detection.png
-    ├── 04-os-detection.png
-    └── 05-service-and-os-detection.png
+├── screenshots/                       # Scan evidence and results
+│   ├── 01-host-discovery.png
+│   ├── 02-basic-port-scan.png
+│   ├── 03-service-version-detection.png
+│   ├── 04-os-detection.png
+│   └── 05-service-and-os-detection.png
+│
+├── data/                              # Structured scan data and analysis
+│   ├── scan-results.json              # Complete scan results in JSON format
+│   ├── ports-and-services.csv         # Port mapping with attack surface assessment
+│   ├── vulnerabilities-cve-mapping.json  # CVE database with severity ratings
+│   └── README.md                      # Data format documentation
+│
+└── scripts/                           # Automated reconnaissance and analysis tools
+    ├── nmap-reconnaissance.sh         # Automated host discovery and scanning
+    ├── analyze-scan-results.sh        # Parse and analyze scan output
+    ├── validate-scan-results.py       # Validate reproducibility and correctness
+    └── README.md                      # Script usage documentation
 ```
 
 ---
@@ -456,11 +579,215 @@ The repository contains screenshots documenting each major stage of the reconnai
 
 | Screenshot | Demonstrates |
 |---|---|
-| `01-host-discovery.png` | Discovery of active hosts on the lab network |
-| `02-basic-port-scan.png` | Identification of open TCP ports |
-| `03-service-version-detection.png` | Enumeration of services and software versions |
-| `04-os-detection.png` | Operating-system fingerprinting |
-| `05-service-and-os-detection.png` | Combined service and OS detection |
+| `screenshots/01-host-discovery.png` | Discovery of active hosts on the lab network |
+| `screenshots/02-basic-port-scan.png` | Identification of open TCP ports |
+| `screenshots/03-service-version-detection.png` | Enumeration of services and software versions |
+| `screenshots/04-os-detection.png` | Operating-system fingerprinting |
+| `screenshots/05-service-and-os-detection.png` | Combined service and OS detection |
+
+---
+
+# 🤖 Automated Tools & Scripts
+
+The repository includes automated scripts for performing reconnaissance and analyzing results.
+
+## Reconnaissance Automation
+
+**File:** `scripts/nmap-reconnaissance.sh`
+
+Automated Bash script that performs the complete reconnaissance sequence:
+
+```bash
+# Basic usage (uses default target and network)
+sudo scripts/nmap-reconnaissance.sh
+
+# Specify target and network
+sudo scripts/nmap-reconnaissance.sh 192.168.190.133 192.168.190.0/24
+```
+
+**Included scanning functions:**
+- Host discovery (`-sn`)
+- Basic TCP port scanning
+- Service/version detection (`-sV`)
+- Operating-system detection (`-O`)
+- Combined service and OS detection
+- UDP port scanning
+- NSE script enumeration
+- Aggressive scanning (`-A`)
+
+**Output:** All scan results are automatically saved to `scan_outputs/` directory with timestamps.
+
+## Results Analysis
+
+**File:** `scripts/analyze-scan-results.sh`
+
+Parses Nmap text output and generates structured reports:
+
+```bash
+# Analyze a specific scan file
+bash scripts/analyze-scan-results.sh scan_outputs/02_basic_port_scan_*.txt
+```
+
+**Generates:**
+- CSV file of identified ports and services
+- Vulnerability assessment report
+- Statistical analysis of scan findings
+
+## Validation & Reproducibility
+
+**File:** `scripts/validate-scan-results.py`
+
+Python script to validate scan results against expected data and check reproducibility:
+
+```bash
+# Run validation checks
+python3 scripts/validate-scan-results.py
+
+# Specify custom data file
+python3 scripts/validate-scan-results.py --data-file data/scan-results.json
+
+# Verbose output
+python3 scripts/validate-scan-results.py --verbose
+```
+
+**Validation checks:**
+- Port count verification
+- Service detection validation
+- OS detection consistency
+- CVE database integrity
+- Data format validation (JSON/CSV)
+
+---
+
+# 📊 Structured Data Files
+
+All scan findings are exported to structured formats for reproducibility and automation.
+
+## scan-results.json
+
+Complete scan results in JSON format with metadata:
+
+```json
+{
+  "scan_metadata": { ... },
+  "host_discovery": { ... },
+  "open_ports_tcp": [ ... ],
+  "os_detection": { ... },
+  "hostname_info": { ... }
+}
+```
+
+**Use cases:**
+- Programmatic analysis
+- Integration with security tools
+- Historical comparison
+- Automated reporting
+
+## ports-and-services.csv
+
+Port-level details with attack surface assessment:
+
+| Column | Description |
+|--------|-------------|
+| port | TCP/UDP port number |
+| protocol | Protocol (tcp/udp) |
+| state | Port state (open/closed/filtered) |
+| service | Detected service name |
+| detected_version | Software version if identified |
+| cpe | Common Platform Enumeration string |
+| attack_surface_risk | Risk assessment and mitigation advice |
+
+**Import into:** Spreadsheets, databases, Python/R analysis tools
+
+## vulnerabilities-cve-mapping.json
+
+Vulnerability database mapping detected software to known CVEs:
+
+```json
+{
+  "vulnerabilities": [
+    {
+      "software": "vsftpd 2.3.4",
+      "port": 21,
+      "vulnerabilities": [
+        {
+          "cve": "CVE-2011-2523",
+          "description": "...",
+          "severity": "Critical",
+          "cvss_score": 9.8,
+          "mitigation": "..."
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "critical_vulnerabilities": 5,
+    "high_severity_vulnerabilities": 10
+  }
+}
+```
+
+**Reference for:**
+- Risk prioritization
+- Remediation planning
+- Compliance reporting
+- Security training
+
+---
+
+# 🛠️ Using the Tools
+
+## Quick Start: Complete Reconnaissance
+
+```bash
+# Run full automated reconnaissance
+sudo bash scripts/nmap-reconnaissance.sh 192.168.190.133 192.168.190.0/24
+
+# Analyze the results
+bash scripts/analyze-scan-results.sh scan_outputs/02_basic_port_scan_*.txt
+
+# Validate reproducibility
+python3 scripts/validate-scan-results.py
+```
+
+## Individual Scans
+
+Run specific scans manually:
+
+```bash
+# Host discovery only
+sudo nmap -sn 192.168.190.0/24
+
+# TCP port scan with service detection
+sudo nmap -sV 192.168.190.133
+
+# OS detection
+sudo nmap -O 192.168.190.133
+
+# UDP scanning
+sudo nmap -sU --top-ports 1000 192.168.190.133
+
+# NSE scripts for enumeration
+sudo nmap -sV --script default 192.168.190.133
+
+# Comprehensive aggressive scan
+sudo nmap -A 192.168.190.133
+```
+
+## Export to Formats
+
+Convert Nmap results to structured formats:
+
+```bash
+# Export to XML (easier to parse)
+sudo nmap -sV 192.168.190.133 -oX scan_output.xml
+
+# Export to Grepable format
+sudo nmap -sV 192.168.190.133 -oG scan_output.gnmap
+
+# Export to all formats
+sudo nmap -sV 192.168.190.133 -oA scan_output
+```
 
 ---
 
@@ -468,15 +795,19 @@ The repository contains screenshots documenting each major stage of the reconnai
 
 This project can be expanded with additional authorised laboratory work, including:
 
-- UDP scanning
-- Nmap NSE scripts
-- More detailed service enumeration
-- Vulnerability assessment within the isolated lab
-- Comparing different Nmap scan techniques
-- Capturing and analysing reconnaissance traffic
-- Investigating how defensive controls detect network scanning
-- Mapping findings to relevant security controls
-- Producing a formal penetration-testing style report
+- ✅ **UDP scanning** - Documented with examples
+- ✅ **Nmap NSE scripts** - Script examples and enumeration techniques included
+- ✅ **Structured data exports** - JSON, CSV formats for reproducibility
+- ✅ **Vulnerability cross-reference** - CVE mapping for detected software
+- ✅ **Automated validation** - Python validation suite for reproducibility
+- **Metasploit integration** - Automated exploitation testing
+- **Web application scanning** - Tools like Burp Suite or OWASP ZAP
+- **Vulnerability assessment automation** - Integration with tools like OpenVAS
+- **Compliance mapping** - Cross-reference findings to CIS, OWASP, NIST controls
+- **Report generation** - Professional PDF/HTML penetration testing reports
+- **Diff analysis** - Track changes over time with historical scanning
+- **Threat modeling** - Map findings to MITRE ATT&CK framework
+- **Defensive control testing** - Verify IDS/IPS detection capabilities
 
 ---
 
