@@ -1,3 +1,4 @@
+<img width="991" height="582" alt="Screenshot 2026-08-27 151707" src="https://github.com/user-attachments/assets/cde0cf05-d358-4a84-ae04-ef97e59be758" />
 # 🔎 Network Reconnaissance & Service Enumeration Using Nmap
 
 ![Kali Linux](https://img.shields.io/badge/Platform-Kali%20Linux-557C94?logo=kalilinux&logoColor=white)
@@ -184,7 +185,10 @@ The target exposes a **large number of network-accessible services**. In a real 
 
 ### Evidence
 
-![Basic Port Scan](screenshots/02-basic-port-scan.png)
+<img width="991" height="582" alt="Screenshot 2026-08-27 151707" src="https://github.com/user-attachments/assets/b03a69a5-0f74-4283-8c33-2c02f1d1b0f7" />
+
+
+Basic Port Scan
 
 ---
 
@@ -232,7 +236,9 @@ The `-sV` option enables **service/version detection**. Instead of reporting onl
 
 ### Evidence
 
-![Service and Version Detection](screenshots/03-service-version-detection.png)
+<img width="1211" height="657" alt="Screenshot 2026-08-27 152537" src="https://github.com/user-attachments/assets/183358c6-fe07-41d1-bae1-59515eea5feb" />
+
+Service and Version Detection
 
 ---
 
@@ -264,7 +270,9 @@ The result is consistent with the expected legacy Linux environment used by Meta
 
 ### Evidence
 
-![OS Detection](screenshots/04-os-detection.png)
+<img width="1071" height="770" alt="Screenshot 2026-08-27 153317" src="https://github.com/user-attachments/assets/c8aa3894-aca4-4ddb-8f75-c012e841a3f3" />
+
+OS Detection
 
 ---
 
@@ -297,7 +305,10 @@ CPE: cpe:/o:linux:linux_kernel
 
 ### Evidence
 
-![Combined Service and OS Detection](screenshots/05-service-and-os-detection.png)
+<img width="1197" height="732" alt="Screenshot 2026-08-27 153502" src="https://github.com/user-attachments/assets/4fba5387-0373-469a-95bc-2764a08400ba" />
+
+
+Combined Service and OS Detection
 
 ---
 
