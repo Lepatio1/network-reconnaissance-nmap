@@ -187,7 +187,7 @@ The target exposes a **large number of network-accessible services**. In a real 
 <img width="991" height="582" alt="Screenshot 2026-08-27 151707" src="https://github.com/user-attachments/assets/b03a69a5-0f74-4283-8c33-2c02f1d1b0f7" />
 
 
-Basic Port Scan
+Basic Port Scan 
 
 ---
 
