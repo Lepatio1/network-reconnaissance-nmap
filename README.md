@@ -126,7 +126,7 @@ The target selected for further enumeration was:
 ### Evidence
 <img width="880" height="410" alt="Screenshot 2026-08-27 145621" src="https://github.com/user-attachments/assets/c6f67c06-8929-40a4-b51a-9dd170d109f0" />
 
-![Host Discovery](screenshots/01-host-discovery.png)
+![Host Discovery]
 
 ---
 
